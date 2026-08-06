@@ -1,4 +1,5 @@
 import { Page } from "@playwright/test";
+import { step } from '../helpers/test-step-decorator';
 
 export class NavigationPage {
 
@@ -8,51 +9,42 @@ export class NavigationPage {
         this.page = page;
     }
 
-    // FIX: target the correct visible Nebular sidebar menu
-    private menu() {
-        return this.page.locator('nb-sidebar').locator('nb-menu');
-    }
 
-    private group(groupName: string) {
-        return this.menu().getByRole('link', { name: groupName });
-    }
-
-    private item(itemName: string) {
-        return this.menu().getByRole('link', { name: itemName });
-    }
-
-    private async selectGroupMenuItem(groupName: string) {
-        const groupMenuItem = this.group(groupName);
-
-        const collapsedIcon = groupMenuItem.locator('nb-icon[icon="chevron-right-outline"]');
-
-        if (await collapsedIcon.isVisible()) {
-            await groupMenuItem.click();
-        }
-    }
-
+    @step
     async formLayoutsPage() {
         await this.selectGroupMenuItem('Forms');
-        await this.item('Form Layouts').click();
+        await this.page.getByText('Form Layouts').click();
     }
 
+    @step   
     async datepickerPage() {
         await this.selectGroupMenuItem('Forms');
-        await this.item('Datepicker').click();
+        await this.page.getByText('Datepicker').click();
     }
 
-    async smartTablePage() {
-        await this.selectGroupMenuItem('Tables & Data');
-        await this.item('Smart Table').click();
-    }
-
+    @step
     async toastrPage() {
         await this.selectGroupMenuItem('Modal & Overlays');
-        await this.item('Toastr').click();
+        await this.page.getByText('Toastr').click();
     }
-
+    
+    @step
     async tooltipPage() {
         await this.selectGroupMenuItem('Modal & Overlays');
-        await this.item('Tooltip').click();
+        await this.page.getByText('Tooltip').click();
+    }
+
+    @step
+    async smartTablePage() {
+        await this.selectGroupMenuItem('Tables & Data');
+        await this.page.getByText('Smart Table').click();
+    }
+
+    private async selectGroupMenuItem(groupMenuTitle: string) {
+        const groupMenuItem = this.page.getByTitle(groupMenuTitle);
+        const expandedState = await groupMenuItem.getAttribute('aria-expanded');
+        if (expandedState === 'false') {
+            await groupMenuItem.click();
+        }
     }
 }

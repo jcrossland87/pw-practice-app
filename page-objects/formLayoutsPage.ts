@@ -1,5 +1,6 @@
 import { Page } from "@playwright/test";
 import { HelperBase } from "./helperBase";
+import { step } from '../helpers/test-step-decorator';
 
 export class FormLayoutsPage extends HelperBase{
 
@@ -17,6 +18,7 @@ export class FormLayoutsPage extends HelperBase{
      * @param optionText - descriptor for Options
      */
 
+    @step
     async submitUsingTheGridFormWithCredentialsAndSelectOption(email: string, password: string, optionText: string){
         const usingTheGridForm = this.page.locator('nb-card', {hasText: "Using the Grid"})
         await usingTheGridForm.getByRole('textbox', {name: "Email"}).fill(email)
@@ -33,6 +35,7 @@ export class FormLayoutsPage extends HelperBase{
      * @param rememberMe - true or false if user session to be saved
      */
     
+    @step
     async submitInlineFormWithNameEmailAndCheckbox(name: string, email: string, rememberMe: boolean){
         const inlineForm = this.page.locator('nb-card', {hasText: "Inline form"})
         await inlineForm.getByRole('textbox', {name: "Jane Doe"}).fill(name)
