@@ -11,6 +11,7 @@ test('Navigate to form layouts page', async ({ page }) => {
     const navigateTo = new NavigationPage(page);
     await navigateTo.formLayoutsPage();
     await navigateTo.datepickerPage();
+    await navigateTo.toastrPage();
     await navigateTo.smartTablePage();
 });
 
