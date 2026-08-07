@@ -1,5 +1,4 @@
 import { Page } from "@playwright/test";
-import { step } from '../helpers/test-step-decorator';
 
 export class NavigationPage {
 
@@ -9,42 +8,41 @@ export class NavigationPage {
         this.page = page;
     }
 
+    // Correct navigation menu (verified from live DOM)
+    private menu() {
+        return this.page.locator('nb-menu ul.menu-items');
+    }
 
-    @step
+    private group(name: string) {
+        return this.menu().getByRole('link', { name });
+    }
+
+    private item(name: string) {
+        return this.menu().getByRole('link', { name });
+    }
+
     async formLayoutsPage() {
-        await this.selectGroupMenuItem('Forms');
-        await this.page.getByText('Form Layouts').click();
+        await this.group('Forms').click();
+        await this.item('Form Layouts').click();
     }
 
-    @step   
     async datepickerPage() {
-        await this.selectGroupMenuItem('Forms');
-        await this.page.getByText('Datepicker').click();
+        await this.group('Forms').click();
+        await this.item('Datepicker').click();
     }
 
-    @step
     async toastrPage() {
-        await this.selectGroupMenuItem('Modal & Overlays');
-        await this.page.getByText('Toastr').click();
+        await this.group('Modal & Overlays').click();
+        await this.item('Toastr').click();
     }
-    
-    @step
+
     async tooltipPage() {
-        await this.selectGroupMenuItem('Modal & Overlays');
-        await this.page.getByText('Tooltip').click();
+        await this.group('Modal & Overlays').click();
+        await this.item('Tooltip').click();
     }
 
-    @step
     async smartTablePage() {
-        await this.selectGroupMenuItem('Tables & Data');
-        await this.page.getByText('Smart Table').click();
-    }
-
-    private async selectGroupMenuItem(groupMenuTitle: string) {
-        const groupMenuItem = this.page.getByTitle(groupMenuTitle);
-        const expandedState = await groupMenuItem.getAttribute('aria-expanded');
-        if (expandedState === 'false') {
-            await groupMenuItem.click();
-        }
+        await this.group('Tables & Data').click();
+        await this.item('Smart Table').click();
     }
 }

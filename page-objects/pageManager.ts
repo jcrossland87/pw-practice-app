@@ -1,35 +1,33 @@
 import { Page, expect } from '@playwright/test';
-import {NavigationPage} from '../page-objects/navigationPage'
+import { NavigationPage } from '../page-objects/navigationPage'
 import { FormLayoutsPage } from '../page-objects/formLayoutsPage'
 import { DatepickerPage } from '../page-objects/datepickerPage'
-import { step } from '../helpers/test-step-decorator';
 
 export class PageManager{
 
-    private readonly page: Page
-    private readonly navigationPage: NavigationPage
-    private readonly formLayoutsPage: FormLayoutsPage
-    private readonly datepickerPage: DatepickerPage   
+    private readonly page: Page;
+    private readonly navigationPage: NavigationPage;
+    private readonly formLayouts: FormLayoutsPage;
+    private readonly datepicker: DatepickerPage;   
 
 
-    constructor(page: Page){
-
-        this.page = page
-        this.navigationPage = new NavigationPage(this.page)
-        this.formLayoutsPage = new FormLayoutsPage(this.page)
-        this.datepickerPage = new DatepickerPage(this.page)
+    constructor(page: Page) {
+        this.page = page;
+        this.navigationPage = new NavigationPage(this.page);
+        this.formLayouts = new FormLayoutsPage(this.page);
+        this.datepicker = new DatepickerPage(this.page);
     }
 
-    navigateTo(){
-        return this.navigationPage
+    get navigateTo(){
+        return this.navigationPage;
     }
 
-    onFormLayoutsPage(){
-        return this.formLayoutsPage
+    get formLayoutsPage(){
+        return this.formLayouts;
     }
 
-    onDatepickerPage(){
-        return this.datepickerPage
+    get datepickerPage(){
+        return this.datepicker;
     }
     
 }

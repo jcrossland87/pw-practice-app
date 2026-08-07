@@ -1,30 +1,26 @@
 import { test } from '@playwright/test';
-import { NavigationPage } from '../page-objects/navigationPage';
-import { FormLayoutsPage } from '../page-objects/formLayoutsPage';
-import { DatepickerPage } from '../page-objects/datepickerPage';
+import { PageManager } from '../page-objects/pageManager';
 
 test.beforeAll(async ({ page }) => {
     await page.goto('https://playground.bondaracademy.com/');
 })
 
 test('Navigate to form layouts page', async ({ page }) => {
-    const navigateTo = new NavigationPage(page);
-    await navigateTo.formLayoutsPage();
-    await navigateTo.datepickerPage();
-    await navigateTo.toastrPage();
-    await navigateTo.smartTablePage();
+    const pom = new PageManager(page)
+    await pom.navigateTo.formLayoutsPage();
+    await pom.navigateTo.datepickerPage();
+    await pom.navigateTo.toastrPage();
+    await pom.navigateTo.smartTablePage();
 });
 
 test('Parameterized page object methods', async({page}) => {
-    const navigateTo = new NavigationPage(page);
-    const formLayoutsPage = new FormLayoutsPage(page);
-    const datepickerPage = new DatepickerPage(page);
-    await navigateTo.formLayoutsPage();
-    await formLayoutsPage.submitUsingTheGridFormWithCredentialsAndSelectOption('artem@test.com', 'Welcome', 'Option 2');
-    await formLayoutsPage.submitInlineFormWithNameEmailAndCheckbox('Artem Bordar', 'artem@test.com', false);
-    await navigateTo.datepickerPage();
-    await datepickerPage.selectCommonDatePickerDateFromToday(5);
-    await datepickerPage.selectDatepickerWithRangeFromToday(7, 20);
+    const pom = new PageManager(page)
+    await pom.navigateTo.formLayoutsPage();
+    await pom.formLayoutsPage.submitUsingTheGridFormWithCredentialsAndSelectOption('artem@test.com', 'Welcome', 'Option 2');
+    await pom.formLayoutsPage.submitInlineFormWithNameEmailAndCheckbox('Artem Bordar', 'artem@test.com', false);
+    await pom.navigateTo.datepickerPage();
+    await pom.datepickerPage.selectCommonDatePickerDateFromToday(5);
+    await pom.datepickerPage.selectDatepickerWithRangeFromToday(7, 20);
 })
 
 
