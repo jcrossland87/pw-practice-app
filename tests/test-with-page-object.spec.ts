@@ -2,7 +2,7 @@ import { test } from '@playwright/test';
 import { PageManager } from '../page-objects/pageManager';
 
 test.beforeAll(async ({ page }) => {
-    await page.goto('https://playground.bondaracademy.com/');
+    await page.goto('http://localhost:4200/');
 })
 
 test('Navigate to form layouts page', async ({ page }) => {

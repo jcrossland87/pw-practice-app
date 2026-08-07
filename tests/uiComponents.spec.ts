@@ -46,11 +46,6 @@ test.describe('Form Layouts page', () => {
 test('checkboxes', async({page}) => {
     await page.getByText('Modal & Overlays').click()
     await page.getByText('Toastr').click()
-    //use ({force: true}) argument with click() if hidden element
-    //await page.getByRole('checkbox', {name: "Hide on click"}).click({force: true})
-    //difference with click and check on a checkbox - click checks checkbox - check does not uncheck checkbox
-    //await page.getByRole('checkbox', {name: "Hide on click"}).check({force: true})
-    //difference with check and uncheck on a checkbox - uncheck does uncheck only - check does check only
     await page.getByRole('checkbox', {name: "Hide on click"}).uncheck({force: true})
     await page.getByRole('checkbox', {name: "Prevent arising of duplicate toast"}).check({force: true})
 
@@ -131,14 +126,6 @@ test('browser dialog box', async({page}) => {
     await page.getByText('Tables & Data').click()
     await page.getByText('Smart Table').click()
 
-    //create listener for dialog box to stay open
-    //page.on('dialog', dialog => {
-    //    expect(dialog.message()).toEqual('Are you sure you want to delete?')
-    //    dialog.accept()
-    //})
-
-    //await page.getByRole('table').locator('tr', {hasText: "mdo@gmail.com"}).locator('nb-trash').click()
-    //await expect(page.locator('table tr').first()).not.toHaveText('mdo@gmail.com')
 })
 
 //This is a basic Playwright test to open all the dialogs in the Announcer webapp to check they open as expected
@@ -159,14 +146,6 @@ test('webapp dialog box 2', async({page}) => {
 
 })
 
-//test fails because there is an Open Dialog with Backlog Click as well as an Open Dialog with Backlog
-//test('webapp dialog box 3', async({page}) => {
-//    await page.getByText('Modal & Overlays').click()
-//    await page.getByText('Dialog').click()
-//    await page.getByText('Open Dialog with Backdrop').click()
-//    await page.getByText('Dismiss Dialog').click() 
-//
-//})
 
 test('webapp dialog box 4', async({page}) => {
     await page.getByText('Modal & Overlays').click()
@@ -199,15 +178,6 @@ test('webapp dialog box 7', async({page}) => {
     await page.getByText('Dismiss Dialog').click() 
 
 })
-
-//test fails because there is an Open Dialog with Backlog as well as an Open Dialog with Backlog Click
-//test('webapp dialog box 8', async({page}) => {
-//    await page.getByText('Modal & Overlays').click()
-//    await page.getByText('Dialog').click()
-//    await page.getByText('Open Dialog without Backdrop Click').click()
-//    await page.getByText('Close Dialog').click() 
-//
-//})
 
 // Web Tables (Part 1 and Part 2)
 
@@ -274,7 +244,7 @@ test('datepicker 1', async({page}) => {
 
     // have to specify exact argument with getByText as 1 returns all containing 1 not only 1 value
     await page.locator('[class="day-cell ng-star-inserted"]').getByText('1', {exact: true}).click()
-    await expect(calendarInputField).toHaveValue('Apr 1, 2026')
+    await expect(calendarInputField).toHaveValue('Aug 1, 2026')
 
 })
 
