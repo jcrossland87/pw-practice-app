@@ -1,5 +1,7 @@
 import {test, expect} from '@playwright/test'
 
+test.describe.configure({mode: 'parallel'}) // run tests in parallel mode for this describe block
+
 test.beforeEach(async({page}) => {
     await page.goto('http://localhost:4200/')
 })
@@ -15,7 +17,9 @@ test.describe('Form Layouts page', () => {
         await usingTheGridEmailInput.fill('test@test.com')
         await usingTheGridEmailInput.clear()
         // Use pressSequentially with a delay to simulate slow key presses on input
-        await usingTheGridEmailInput.pressSequentially('test2@test.com', {delay: 500})
+        // await usingTheGridEmailInput.pressSequentially('test2@test.com', {delay: 500})
+        // Cancelled delay to speed up test execution and avoid timeout error when running tests in parallel on CI/CD pipeline
+        await usingTheGridEmailInput.pressSequentially('test2@test.com')
 
         //generic assertion of input fields
         const inputValue = await usingTheGridEmailInput.inputValue()

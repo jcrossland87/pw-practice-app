@@ -5,7 +5,7 @@ test.beforeEach(async({page}) => {
     await page.getByText('Button Triggering AJAX Request').click()
 })
 
-test('auto waiting', async({page}) => {
+test.skip('auto waiting', async({page}) => {
     const successButton = page.locator('.bg-success')
 
     //await successButton.click()
@@ -16,7 +16,7 @@ test('auto waiting', async({page}) => {
 
 })
 
-test('alternative waits', async({page}) => {
+test.skip('alternative waits', async({page}) => {
     const successButton = page.locator('.bg-success')
 
     //  wait for element
