@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
+// Updated for 66. Screenshots & Videos Udemy Playwright course lesson 66. Screenshots & Videos 
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -32,6 +34,13 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    // actionTimeout: 5000, // 5 seconds
+    // navigationTimeout: 5000, // 5 seconds
+    // Updated for 66. Screenshots & Videos Udemy Playwright course lesson 66. Screenshots & Videos 
+    video: {
+      mode: 'on',
+      size: {width: 1200, height: 800}
+    }  
   },
 
   /* Configure projects for major browsers */
