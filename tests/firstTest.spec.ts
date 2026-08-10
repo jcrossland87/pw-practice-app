@@ -1,7 +1,10 @@
 import {test, expect} from '@playwright/test'
 
+// Updated for 67. Environment Variables - useful for CI for Dev and Test and Staging Variables
+// baseURL: 'http://localhost:4200/', in playwright.config.ts referenced as ('/') in tests/usePageObjects.spec.ts and uiComponents.spec.ts
+
 test.beforeEach(async({page}) => {
-    await page.goto('http://localhost:4200/')
+    await page.goto('/')
     await page.getByText('Forms').click()
     await page.getByText('Form Layouts').click()
 })

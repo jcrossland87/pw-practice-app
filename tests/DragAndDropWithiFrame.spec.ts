@@ -1,49 +1,14 @@
-// // Drag and Drop with iFrames globalsqa.com/demo-site/draganddrop/
-
-// import {test, expect} from '@playwright/test'
-
-// test('drag and drop with iframe', async({page}) => {
-//     await page.goto('https://www.globalsqa.com/demo-site/draganddrop');
-
-//     // have to switch into the iFrame first
-//     const frame = page.frameLocator('[rel-title="Photo Manager"] iframe');
-
-//     await frame.locator('li', {hasText:"High Tatras 2"}).dragTo(frame.locator('#trash'));
-
-// })
-
-// Copilot solution to issue below - missed chaneing await.frame - still had await.page for locator as URL
-
-// import { test, expect } from '@playwright/test';
-
-// test('drag and drop with iframe', async ({ page }) => {
-//   await page.goto('https://www.globalsqa.com/demo-site/draganddrop/');
-
-//   // Switch into the iframe
-//   const frame = page.frameLocator('[rel-title="Photo Manager"] iframe');
-
-//   // Drag item inside the iframe to the trash inside the iframe
-//   await frame.locator('li:has-text("High Tatras 2")')
-//     .dragTo(frame.locator('#trash'));
-
-//   // more precise control
-//   await frame.locator('li:has-text("High Tatras 4")')
-//     .hover();
-
-//   await page.mouse.down()
-//   await frame.locator('#trash').hover()
-//   await page.mouse.up()
-
-//   await expect(frame.locator)('#trash li h5').toHaveText(["High Tatras 2", "High Tatras 4"])
-
-// });
-
 // Copilot solution to the final updated test
 
-import { test, expect } from '@playwright/test';
+// Updated for 67. Environment Variables - useful for CI for Dev and Test and Staging Variables
+// added test.options.ts that defines globals QA string and array globalsQaURL that gets imported via TestOptions from ./test-options.ts
 
-test('drag and drop with iframe', async ({ page }) => {
-  await page.goto('https://www.globalsqa.com/demo-site/draganddrop/');
+import {expect} from '@playwright/test';
+
+import {test} from '../test-options';
+
+test('drag and drop with iframe', async ({page, globalsQaURL}) => {
+  await page.goto(globalsQaURL);
 
   const frame = page.frameLocator('[rel-title="Photo Manager"] iframe');
 

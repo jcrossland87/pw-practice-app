@@ -2,8 +2,11 @@ import {test, expect} from '@playwright/test'
 
 test.describe.configure({mode: 'parallel'}) // run tests in parallel mode for this describe block
 
+// Updated for 67. Environment Variables - useful for CI for Dev and Test and Staging Variables
+// baseURL: 'http://localhost:4200/', in playwright.config.ts referenced as ('/') in tests/usePageObjects.spec.ts and uiComponents.spec.ts
+
 test.beforeEach(async({page}) => {
-    await page.goto('http://localhost:4200/')
+    await page.goto('/')
 })
 
 test.describe('Form Layouts page', () => {

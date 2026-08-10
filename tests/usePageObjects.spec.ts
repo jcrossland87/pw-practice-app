@@ -2,9 +2,11 @@ import {test, expect} from '@playwright/test'
 import { PageManager } from '../page-objects/pageManager'
 import {faker} from '@faker-js/faker'
 // Updated for 66. Screenshots & Videos Udemy Playwright course lesson 66. Screenshots & Videos 
+// Updated for 67. Environment Variables - useful for CI for Dev and Test and Staging Variables
+// baseURL: 'http://localhost:4200/', in playwright.config.ts referenced as ('/') in tests/usePageObjects.spec.ts and uiComponents.spec.ts
 
 test.beforeEach(async({page}) => {
-    await page.goto('http://localhost:4200/')
+    await page.goto('/')
 })
 
 test('navigate to form page', async({page}) => {
