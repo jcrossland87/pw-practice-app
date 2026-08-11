@@ -1,3 +1,13 @@
+// 72. Test Tags - added tag @smoke on test 'navigate to form page @smoke'
+// Then called the tag in the terminal to run only the tagged test with:
+// npx playwright test --project=chromium --grep "@smoke" - or
+// npx playwright test --project=chromium --grep "@regression"
+// Quote "" the @ symbol PowerShell treats @ as variable like $
+// Above example shows options to run 1 test with "@regression"
+// and 2 tests with "@smoke"
+// Can also run two separate tests tagged in different files.
+// npx playwright test --project=chromium --grep "@block|@smoke"
+// Runs two tests in /tests/uiComponents.spec.ts and two tests in /tests/usePageObjects.spect.ts
 import {test, expect} from '@playwright/test'
 import { PageManager } from '../page-objects/pageManager'
 import {faker} from '@faker-js/faker'
@@ -9,7 +19,7 @@ test.beforeEach(async({page}) => {
     await page.goto('/')
 })
 
-test('navigate to form page', async({page}) => {
+test('navigate to form page @smoke @regression', async({page}) => {
     const pm = new PageManager(page)
     await pm.navigateTo.formLayoutsPage()
     await pm.navigateTo.datepickerPage()
@@ -18,7 +28,7 @@ test('navigate to form page', async({page}) => {
     await pm.navigateTo.tooltipPage()    
 })
 
-test('parameterized methods', async({page}) => {
+test('parameterized methods @smoke', async({page}) => {
     const pm = new PageManager(page)
     const randomFullName = faker.person.fullName()
     const randomEmail = `${randomFullName.replace(' ', '')}${faker.number.int(1000)}@test.com`

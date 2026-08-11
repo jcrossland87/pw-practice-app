@@ -1,3 +1,11 @@
+// 72. Test Tags - added tag @smoke on test 'navigate to form page @smoke'
+// Then called the tag in the terminal to run only the tagged test with:
+// npx playwright test --project=chromium --grep "@block"
+// Quote "" the @ symbol PowerShell treats @ as variable like $
+// Above example shows options to run 2 tests with "@block"
+// Can also run two separate tests tagged in different files.
+// npx playwright test --project=chromium --grep "@block|@smoke"
+// Runs two tests in /tests/uiComponents.spec.ts and two tests in /tests/usePageObjects.spect.ts
 import {test, expect} from '@playwright/test'
 
 test.describe.configure({mode: 'parallel'}) // run tests in parallel mode for this describe block
@@ -9,7 +17,7 @@ test.beforeEach(async({page}) => {
     await page.goto('/')
 })
 
-test.describe('Form Layouts page', () => {
+test.describe('Form Layouts page @block', () => {
     test.beforeEach(async({page}) => {
         await page.getByText('Forms').click()
         await page.getByText('Form Layouts').click()
