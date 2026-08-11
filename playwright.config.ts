@@ -1,3 +1,13 @@
+// 73. Mobile Device Emulator
+// testMobile.spec.ts added and added await page.locator('.sidebar-toggle').click()
+// with mobile configured in playwright.config.ts for an Apple iPhone 13 Pro screen
+// Inspect Element in browser to find the mobile screen locator to script its access
+// Conditional run with mobile selected for .sidebar-toggle only needed in mobile
+// if(testInfo.project.name == 'mobile'){
+//     await page.locator('.sidebar-toggle').click()
+// }
+// Turn on mobile and it runs in mobile view. Turn on chromium and it runs normally. 
+
 import { defineConfig, devices } from '@playwright/test';
 
 // Updated for 66. Screenshots & Videos Udemy Playwright course lesson 66. Screenshots & Videos 
@@ -123,6 +133,31 @@ export default defineConfig<TestOptions>({
        name: 'Google Chrome',
        use: { ...devices['Desktop Chrome'], channel: 'chrome' },
      },
+     {
+       name: 'pageObjectFullScreen',
+       testMatch: 'usePageObjects.spec.ts',
+       use: {
+         viewport: {width:1920, height: 1080}
+       }
+     },
+
+// 73. Mobile Device Emulator
+// testMobile.spec.ts added and added await page.locator('.sidebar-toggle').click()
+// with mobile configured in playwright.config.ts for an Apple iPhone 13 Pro screen
+// Inspect Element in browser to find the mobile screen locator to script its access
+// Conditional run with mobile selected for .sidebar-toggle only needed in mobile
+// if(testInfo.project.name == 'mobile'){
+//     await page.locator('.sidebar-toggle').click()
+// }
+// Turn on mobile and it runs in mobile view. Turn on chromium and it runs normally. 
+
+     {
+       name: 'mobile',
+       testMatch: 'testMobile.spec.ts',
+       use: {
+         ...devices['iPhone 13 Pro']
+       }
+     }
   ],
 
   /* Run your local dev server before starting the tests */
