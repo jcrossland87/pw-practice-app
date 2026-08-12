@@ -1,3 +1,30 @@
+// 76. Playwright with Docker Container
+// install Docker Container and WSL first
+// Enable Hypervisor for Docker Container
+// PowerShell Administrator command:
+// Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+// Enable WSL2 and install default Ubuntu distro for Linux distro in WSL2
+// wsl --install
+// Install Docker Desktop for Windows from the Microsoft Store
+// https://apps.microsoft.com/home - search for Docker Desktop and Ubuntu
+// See Playwright Docker documentation: https://playwright.dev/docs/docker
+// Check and match the Playwright version used in the Docker Playwright image
+// https://playwright.dev/docs/docker mcr.microsoft.com/playwright:v1.59.1-noble
+// Check Playwright version in the terminal with: npx playwright --version
+// Check Playwright version in package.json: "@playwright/test": "^1.59.1", 
+// See Dockerfile for the setup of Docker image and see the terminal commands:
+// docker build -t pw-pageobject-test . 
+// docker images
+// These commands create then view the docker image file: pw-pageobject-test
+// Deleted /playwright-report/ folder contents and /test-results/ folder contents
+// Expecting new report from Docker image test run 
+// Then run the Docker image and run the tests in it
+// docker run -it pw-pageobject-test
+// /app# npm run pageObjects-chrome
+// Then after the tests have run in the Docker container create a Docker Dash to put the results in
+// Create a Docker Dash named docker-compose.yaml in VS Code Explorer that copies the test results
+// Run the Docker Dash with this command in the terminal: docker-compose up --build
+
 // 75. Visual Testing - needs to run twice - first to generate a screenshot then again
 // to run the assertion against the screenshot for expected versus actual pixel check
 // Run with this line uncommented to get the screenshot then again to compare screenshot
@@ -55,21 +82,21 @@ test.describe('Form Layouts page @block', () => {
         await usingTheGridForm.getByRole('radio', {name: "Option 1"}).check({force: true})
         const radioStatus = await usingTheGridForm.getByRole('radio', {name: "Option 1"}).isChecked()
 
-        // 75. Visual Testing - needs to run twice - first to generate a screenshot then again
-        // to run the assertion against the screenshot for expected versus actual pixel check
-        // Run with this line uncommented to get the screenshot then again to compare screenshot
-        await expect(usingTheGridForm).toHaveScreenshot({maxDiffPixels: 250})
+        // // 75. Visual Testing - needs to run twice - first to generate a screenshot then again
+        // // to run the assertion against the screenshot for expected versus actual pixel check
+        // // Run with this line uncommented to get the screenshot then again to compare screenshot
+        // await expect(usingTheGridForm).toHaveScreenshot({maxDiffPixels: 250})
 
         // 75. Visual Testing - commented out the other non-visual validation assertions
 
-        // //validation assertions
-        // expect(radioStatus).toBeTruthy()
-        // await expect(usingTheGridForm.getByRole('radio', {name: "Option 1"})).toBeChecked()
+        //validation assertions
+        expect(radioStatus).toBeTruthy()
+        await expect(usingTheGridForm.getByRole('radio', {name: "Option 1"})).toBeChecked()
 
-        // //test to check Option 1 radio button is no longer selected with tobeFalsy()
-        // await usingTheGridForm.getByLabel('Option 2').check({force: true})
-        // expect(await usingTheGridForm.getByRole('radio', {name: "Option 1"}).isChecked()).toBeFalsy()
-        // expect(await usingTheGridForm.getByRole('radio', {name: "Option 2"}).isChecked()).toBeTruthy()
+        //test to check Option 1 radio button is no longer selected with tobeFalsy()
+        await usingTheGridForm.getByLabel('Option 2').check({force: true})
+        expect(await usingTheGridForm.getByRole('radio', {name: "Option 1"}).isChecked()).toBeFalsy()
+        expect(await usingTheGridForm.getByRole('radio', {name: "Option 2"}).isChecked()).toBeTruthy()
 
     })
 })
