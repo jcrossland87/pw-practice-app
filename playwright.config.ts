@@ -1,3 +1,14 @@
+// 74. Reporter - playwright.config.ts can change reporter: 'html' to reporter: 'list' or reporter: 'json'
+// to get different test report outputs as needed with the test report output displayed in the terminal
+// see the Playwright documentation on Reporters at https://playwright.dev/docs/test-reporters
+// see https://www.npmjs.com/package/allure-playwright and https://www.npmjs.com/package/allure for Allure
+// install allure on the VS Code terminal with: npm i allure
+// install allure-playwright on the VS Code terminal with: npm i allure-playwright
+// Allure produces summary test reports that look like Azure Test Plans reports/TestRail Test Run reports
+// Allure may be moot for Azure if can use Azure Test Plans for Playwright tests run in Azure for reports
+// Allure would be useful for someone to setup using say GitHub Actions for CI instead of Azure DevOps CI
+
+
 // 73. Mobile Device Emulator
 // testMobile.spec.ts added and added await page.locator('.sidebar-toggle').click()
 // with mobile configured in playwright.config.ts for an Apple iPhone 13 Pro screen
@@ -51,8 +62,18 @@ export default defineConfig<TestOptions>({
   retries: process.env.CI ? 2 : 1,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
+  // 74. Reporter - playwright.config.ts can change reporter: 'html' to reporter: 'list' or reporter: 'json'
+  // to get different test report outputs as needed with the test report output displayed in the terminal
+  // See https://www.npmjs.com/package/allure-playwright and https://www.npmjs.com/package/allure for Allure
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
+  // reporter: [['json', {outputFile: 'test-results/jsonReport.json'}]],
+  // reporter: 'list',
+  // reporter: [
+  //   ['json', {outputFile: 'test-results/jsonReport.json'}],
+  //   ['junit', {outputFile: 'test-results/junitReport.xml'}],
+  //   ['allure-playwright']
+  // ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
