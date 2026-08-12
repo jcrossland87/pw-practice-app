@@ -1,3 +1,8 @@
+// 75. Visual Testing - needs to run twice - first to generate a screenshot then again
+// to run the assertion against the screenshot for expected versus actual pixel check
+// Run with this line uncommented to get the screenshot then again to compare screenshot
+// await expect(usingTheGridForm).toHaveScreenshot({maxDiffPixels: 250})
+
 // 72. Test Tags - added tag @smoke on test 'navigate to form page @smoke'
 // Then called the tag in the terminal to run only the tagged test with:
 // npx playwright test --project=chromium --grep "@block"
@@ -40,20 +45,31 @@ test.describe('Form Layouts page @block', () => {
         await expect(usingTheGridEmailInput).toHaveValue('test2@test.com')
     })
 
+    // 75. Visual Testing - updated to .only to only run this test in uiComponents.spec.ts
+    // remove the commenting and swap back from .only to get a compelte /tests/ run done
+    // test('radio buttons', async({page}) => {
     test('radio buttons', async({page}) => {
         const usingTheGridForm = page.locator('nb-card', {hasText: "Using the Grid"})
         //using force: true with check to check the checkbox selected below
         await usingTheGridForm.getByLabel('Option 1').check({force: true})
         await usingTheGridForm.getByRole('radio', {name: "Option 1"}).check({force: true})
         const radioStatus = await usingTheGridForm.getByRole('radio', {name: "Option 1"}).isChecked()
-        //validation assertions
-        expect(radioStatus).toBeTruthy()
-        await expect(usingTheGridForm.getByRole('radio', {name: "Option 1"})).toBeChecked()
 
-        //test to check Option 1 radio button is no longer selected with tobeFalsy()
-        await usingTheGridForm.getByLabel('Option 2').check({force: true})
-        expect(await usingTheGridForm.getByRole('radio', {name: "Option 1"}).isChecked()).toBeFalsy()
-        expect(await usingTheGridForm.getByRole('radio', {name: "Option 2"}).isChecked()).toBeTruthy()
+        // 75. Visual Testing - needs to run twice - first to generate a screenshot then again
+        // to run the assertion against the screenshot for expected versus actual pixel check
+        // Run with this line uncommented to get the screenshot then again to compare screenshot
+        await expect(usingTheGridForm).toHaveScreenshot({maxDiffPixels: 250})
+
+        // 75. Visual Testing - commented out the other non-visual validation assertions
+
+        // //validation assertions
+        // expect(radioStatus).toBeTruthy()
+        // await expect(usingTheGridForm.getByRole('radio', {name: "Option 1"})).toBeChecked()
+
+        // //test to check Option 1 radio button is no longer selected with tobeFalsy()
+        // await usingTheGridForm.getByLabel('Option 2').check({force: true})
+        // expect(await usingTheGridForm.getByRole('radio', {name: "Option 1"}).isChecked()).toBeFalsy()
+        // expect(await usingTheGridForm.getByRole('radio', {name: "Option 2"}).isChecked()).toBeTruthy()
 
     })
 })
