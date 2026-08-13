@@ -1,3 +1,11 @@
+// 77. GitHub Actions and Argos CI - updated usePageObjects.spec.ts and updated playwright.config.ts
+// added last test for use with Argos CI https://argos-ci.com/ test.only('testing with argos ci', async({page{}) => {
+// where playwright.yml references package.json to run the test npm run pageObjects-chrome for usePageObjects.spec.ts
+// added await argosScreenshot(page, "form layouts page"); and await argosScreenshot(page, "datepicker page") to test.only
+
+// 77/ GitHub Actions and Argos CI - install Argos from terminal with npm i --save-dev @argos-ci/playwright
+// Check package-lock.json and package.json are updated after installation showing "@argos-ci/playwright": "^7.4.5",
+
 // 77. GitHub Actions and Argos CI - updated playwright.yml to use node 20 with - uses: actions/upload-artifact@v4
 // - uses: actions/checkout@v6 and - uses: actions/setup-node@v6 use node-version: 24 with node 20 deprecated
 // but there is no v6 version yet of - uses: actions/upload-artifact@v4 to use node 24 so allow use of node 20 with v4
@@ -58,7 +66,6 @@
 // Allure may be moot for Azure if can use Azure Test Plans for Playwright tests run in Azure for reports
 // Allure would be useful for someone to setup using say GitHub Actions for CI instead of Azure DevOps CI
 
-
 // 73. Mobile Device Emulator
 // testMobile.spec.ts added and added await page.locator('.sidebar-toggle').click()
 // with mobile configured in playwright.config.ts for an Apple iPhone 13 Pro screen
@@ -70,6 +77,10 @@
 // Turn on mobile and it runs in mobile view. Turn on chromium and it runs normally. 
 
 import { defineConfig, devices } from '@playwright/test';
+
+// 77/ GitHub Actions and Argos CI - install Argos from terminal with npm i --save-dev @argos-ci/playwright
+// Check package-lock.json and package.json are updated after installation showing "@argos-ci/playwright": "^7.4.5",
+import { createArgosReporterOptions } from "@argos-ci/playwright/reporter";
 
 // Updated for 66. Screenshots & Videos Udemy Playwright course lesson 66. Screenshots & Videos 
 // Updated for 67. Environment Variables - useful for CI for Dev and Test and Staging Variables
@@ -114,21 +125,31 @@ export default defineConfig<TestOptions>({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   // forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 1,
+  // retries: process.env.CI ? 2 : 1,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  // workers: process.env.CI ? 1 : undefined,
   // 74. Reporter - playwright.config.ts can change reporter: 'html' to reporter: 'list' or reporter: 'json'
   // to get different test report outputs as needed with the test report output displayed in the terminal
   // See https://www.npmjs.com/package/allure-playwright and https://www.npmjs.com/package/allure for Allure
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  // reporter: 'html',
   // reporter: [['json', {outputFile: 'test-results/jsonReport.json'}]],
   // reporter: 'list',
-  // reporter: [
-  //   ['json', {outputFile: 'test-results/jsonReport.json'}],
-  //   ['junit', {outputFile: 'test-results/junitReport.xml'}],
-  //   ['allure-playwright']
-  // ],
+  reporter: [
+    process.env.CI ? ["dot"] : ["list"],
+    [
+      "@argos-ci/playwright/reporter",
+      createArgosReporterOptions({
+        // Upload to Argos on CI only.
+        uploadToArgos: !!process.env.CI,
+      }),
+    ],
+
+    ['json', {outputFile: 'test-results/jsonReport.json'}],
+    ['junit', {outputFile: 'test-results/junitReport.xml'}],
+    // ['allure-playwright'],
+    ['html']
+  ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
@@ -140,6 +161,7 @@ export default defineConfig<TestOptions>({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    screenshot: "only-on-failure",
     // actionTimeout: 5000, // 5 seconds
     // navigationTimeout: 5000, // 5 seconds
     // Updated for 66. Screenshots & Videos Udemy Playwright course lesson 66. Screenshots & Videos 

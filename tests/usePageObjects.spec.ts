@@ -1,3 +1,8 @@
+// 77. GitHub Actions and Argos CI - updated usePageObjects.spec.ts and updated playwright.config.ts
+// added last test for use with Argos CI https://argos-ci.com/ test.only('testing with argos ci', async({page{}) => {
+// where playwright.yml references package.json to run the test npm run pageObjects-chrome for usePageObjects.spec.ts
+// added await argosScreenshot(page, "form layouts page"); and await argosScreenshot(page, "datepicker page") to test.only
+
 // 77. GitHub Actions and Argos CI - updated playwright.yml to use node 20 with - uses: actions/upload-artifact@v4
 // - uses: actions/checkout@v6 and - uses: actions/setup-node@v6 use node-version: 24 with node 20 deprecated
 // but there is no v6 version yet of - uses: actions/upload-artifact@v4 to use node 24 so allow use of node 20 with v4
@@ -21,10 +26,6 @@
 // Made timeout 4 times longer from 60000 (60000ms or 60s so now up to 240s)
 // Also updated playwright.yml timeout-minutes to 120 from 60
 
-// 77. GitHub Actions and Argos CI - updated usePageObjects.spec.ts and added new .github/workflows/playwright.yml
-// added last test for use with Argos CI https://argos-ci.com/ test.only('testing with argos ci', async({page{}) => {
-// where playwright.yml references package.json to run the test npm run pageObjects-chrome for usePageObjects.spec.ts
-
 // 72. Test Tags - added tag @smoke on test 'navigate to form page @smoke'
 // Then called the tag in the terminal to run only the tagged test with:
 // npx playwright test --project=chromium --grep "@smoke" - or
@@ -38,6 +39,8 @@
 import {test, expect} from '@playwright/test'
 import { PageManager } from '../page-objects/pageManager'
 import {faker} from '@faker-js/faker'
+import { argosScreenshot } from "@argos-ci/playwright";
+
 // Updated for 66. Screenshots & Videos Udemy Playwright course lesson 66. Screenshots & Videos 
 // Updated for 67. Environment Variables - useful for CI for Dev and Test and Staging Variables
 // baseURL: 'http://localhost:4200/', in playwright.config.ts referenced as ('/') in tests/usePageObjects.spec.ts and uiComponents.spec.ts
@@ -77,13 +80,16 @@ test('parameterized methods @smoke', async({page}) => {
     await pm.datepickerPage.selectDatepickerWithRangeFromToday(6, 15)
 })
 
-// 77. GitHub Actions and Argos CI - updated usePageObjects.spec.ts and added new .github/workflows/playwright.yml
+// 77. GitHub Actions and Argos CI - updated usePageObjects.spec.ts and updated playwright.config.ts
 // added last test for use with Argos CI https://argos-ci.com/ test.only('testing with argos ci', async({page{}) => {
 // where playwright.yml references package.json to run the test npm run pageObjects-chrome for usePageObjects.spec.ts
+// added await argosScreenshot(page, "form layouts page"); and await argosScreenshot(page, "datepicker page") to test.only
 
 test.only('testing with argos ci', async({page}) => {
     const pm = new PageManager(page)
     await pm.navigateTo.formLayoutsPage()
+    await argosScreenshot(page, "form layouts page");
     await pm.navigateTo.datepickerPage()
+    await argosScreenshot(page, "datepicker page");
 
 })
