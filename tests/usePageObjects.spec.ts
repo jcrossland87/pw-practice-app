@@ -1,3 +1,11 @@
+// 77. GitHub Actions and Argos CI - updated playwright.yml to use node 24 instead of node 20 with GitHub Actions
+// See https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/ node 20 deprecated
+// Got warning on GitHub Actions stating this so updated playwright.yml and added a comment with the link to the URL
+// test Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: 
+// actions/upload-artifact@v4. For more information see: 
+// https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+
 // 77. GitHub Actions and Argos CI - updated playwright.config.ts to comment out the forbidOnly for CI
 // since using test.only('testing with argos ci', async({page}) => { test in usePageObject.spec.ts that
 // gets called from pageObjects-chrome in package.json via npm run pageObjects-chrome in playwright.yml
