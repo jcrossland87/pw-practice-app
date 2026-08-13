@@ -1,3 +1,8 @@
+# 77. GitHub Actions and Argos CI - updated playwright.yml to use node 20 with - uses: actions/upload-artifact@v4
+# - uses: actions/checkout@v6 and - uses: actions/setup-node@v6 use node-version: 24 with node 20 deprecated
+# but there is no v6 version yet of - uses: actions/upload-artifact@v4 to use node 24 so allow use of node 20 with v4
+# so added env: ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true to add an environment variable for node 20 for v4 use
+
 # 77. GitHub Actions and Argos CI - updated playwright.yml to use node 24 instead of node 20 with GitHub Actions
 # See https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/ node 20 deprecated
 # Got warning on GitHub Actions stating this so updated playwright.yml and added a comment with the link to the URL
@@ -15,6 +20,14 @@ jobs:
   test:
     timeout-minutes: 120
     runs-on: ubuntu-latest
+
+    # 77. GitHub Actions and Argos CI - updated playwright.yml to use node 20 with - uses: actions/upload-artifact@v4
+    # - uses: actions/checkout@v6 and - uses: actions/setup-node@v6 use node-version: 24 with node 20 deprecated
+    # but there is no v6 version yet of - uses: actions/upload-artifact@v4 to use node 24 so allow use of node 20 with v4
+    # so added env: ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true to add an environment variable for node 20 for v4 use
+    env:
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+
     steps:
     - uses: actions/checkout@v6
     - uses: actions/setup-node@v6
