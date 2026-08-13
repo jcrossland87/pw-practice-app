@@ -1,3 +1,9 @@
+// 77. GitHub Actions and Argos CI - updated playwright.config.ts timeout settings to run slower on GitHub Actions
+// timeout: 240000,
+// globalTimeout: 240000,
+// Made timeout 4 times longer from 60000 (60000ms or 60s so now up to 240s)
+// Also updated playwright.yml timeout-minutes to 120 from 60
+
 // 77. GitHub Actions and Argos CI - updated usePageObjects.spec.ts and added new .github/workflows/playwright.yml
 // added last test for use with Argos CI https://argos-ci.com/ test.only('testing with argos ci', async({page{}) => {
 // where playwright.yml references package.json to run the test npm run pageObjects-chrome for usePageObjects.spec.ts

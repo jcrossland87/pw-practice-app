@@ -1,3 +1,9 @@
+// 77. GitHub Actions and Argos CI - updated playwright.config.ts timeout settings to run slower on GitHub Actions
+// timeout: 240000,
+// globalTimeout: 240000,
+// Made timeout 4 times longer from 60000 (60000ms or 60s so now up to 240s)
+// Also updated playwright.yml timeout-minutes to 120 from 60
+
 // 76. Playwright with Docker Container
 // install Docker Container and WSL first
 // Enable Hypervisor for Docker Container
@@ -71,8 +77,8 @@ import type { TestOptions } from './test-options';
 // added test.options.ts that defines globals QA string and array globalsQaURL that gets imported via TestOptions from ./test-options.ts
 
 export default defineConfig<TestOptions>({
-  // timeout: 40000,
-  // globalTimeout: 60000,
+  timeout: 240000,
+  globalTimeout: 240000,
 
   // expect:{
   //   timeout: 20000
