@@ -1,7 +1,6 @@
 # 77. GitHub Actions and Argos CI - added argos.yml to create the Argos build at https://app.argos-ci.com/jcrossland87
-# updated argos.yml supplied in https://argos-ci.com/docs/quickstart/playwright-quickstart to be like playwright.yml
-# with updates to run: npm ci --force run: npx playwright install --with-deps --force run: npm run pageObjects-chrome
-# added the ARGOS_TOKEN as supplied at https://app.argos-ci.com/jcrossland87/pw-practice-app/settings/authentication
+# Updated argos.yml in Copilot. ARGOS_TOKEN from https://app.argos-ci.com/jcrossland87/pw-practice-app/settings/authentication
+# Copied ARGOS_TOKEN into GitHub Actions Secrets https://github.com/jcrossland87/pw-practice-app/settings/secrets/actions
 
 name: Argos
 
@@ -14,19 +13,16 @@ on:
 jobs:
   argos:
     runs-on: ubuntu-latest
-    # 77. GitHub Actions and Argos CI - updated playwright.yml to use node 20 with - uses: actions/upload-artifact@v4
-    # - uses: actions/checkout@v6 and - uses: actions/setup-node@v6 use node-version: 24 with node 20 deprecated
-    # but there is no v6 version yet of - uses: actions/upload-artifact@v4 to use node 24 so allow use of node 20 with v4
-    # so added env: ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true to add an environment variable for node 20 for v4 use
     env:
       ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+      ARGOS_TOKEN: ${{ secrets.ARGOS_TOKEN }}
+
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
-          node-version: 24 # https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+          node-version: 24
+
       - run: npm ci --force
       - run: npx playwright install --with-deps --force
       - run: npm run pageObjects-chrome
-        env:
-          ARGOS_TOKEN: ${{ secrets.argos_hnvwbhuqu2od2itigsze2h7utim3qadlkm }}
