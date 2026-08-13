@@ -1,9 +1,13 @@
+// 77. GitHub Actions and Argos CI - updated usePageObjects.spec.ts and added new .github/workflows/playwright.yml
+// added last test for use with Argos CI https://argos-ci.com/ test.only('testing with argos ci', async({page{}) => {
+// where playwright.yml references package.json to run the test npm run pageObjects-chrome for usePageObjects.spec.ts
+
 // 72. Test Tags - added tag @smoke on test 'navigate to form page @smoke'
 // Then called the tag in the terminal to run only the tagged test with:
 // npx playwright test --project=chromium --grep "@smoke" - or
 // npx playwright test --project=chromium --grep "@regression"
 // Quote "" the @ symbol PowerShell treats @ as variable like $
-// Above example shows options to run 1 test with "@regression"
+// Above example shows options to run 1 test with "@regress ion"
 // and 2 tests with "@smoke"
 // Can also run two separate tests tagged in different files.
 // npx playwright test --project=chromium --grep "@block|@smoke"
@@ -48,4 +52,15 @@ test('parameterized methods @smoke', async({page}) => {
     await pm.navigateTo.datepickerPage()
     await pm.datepickerPage.selectCommonDatePickerDateFromToday(10)
     await pm.datepickerPage.selectDatepickerWithRangeFromToday(6, 15)
+})
+
+// 77. GitHub Actions and Argos CI - updated usePageObjects.spec.ts and added new .github/workflows/playwright.yml
+// added last test for use with Argos CI https://argos-ci.com/ test.only('testing with argos ci', async({page{}) => {
+// where playwright.yml references package.json to run the test npm run pageObjects-chrome for usePageObjects.spec.ts
+
+test.only('testing with argos ci', async({page}) => {
+    const pm = new PageManager(page)
+    await pm.navigateTo.formLayoutsPage()
+    await pm.navigateTo.datepickerPage()
+
 })
