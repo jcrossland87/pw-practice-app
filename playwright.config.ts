@@ -1,3 +1,7 @@
+// 77. GitHub Actions and Argos CI - updated playwright.config.ts to comment out the forbidOnly for CI
+// since using test.only('testing with argos ci', async({page}) => { test in usePageObject.spec.ts that
+// gets called from pageObjects-chrome in package.json via npm run pageObjects-chrome in playwright.yml
+
 // 77. GitHub Actions and Argos CI - updated playwright.config.ts timeout settings to run slower on GitHub Actions
 // timeout: 240000,
 // globalTimeout: 240000,
@@ -89,8 +93,13 @@ export default defineConfig<TestOptions>({
   // Updated to true for 65. Parallel Execution Udemy Playwright course lesson 65. Parallel Execution
   // fullyParallel: false,
   fullyParallel: true,
+  
+  // 77. GitHub Actions and Argos CI - updated playwright.config.ts to comment out the forbidOnly for CI
+  // since using test.only('testing with argos ci', async({page}) => { test in usePageObject.spec.ts that
+  // gets called from pageObjects-chrome in package.json via npm run pageObjects-chrome in playwright.yml
+  
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
+  // forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 1,
   /* Opt out of parallel tests on CI. */

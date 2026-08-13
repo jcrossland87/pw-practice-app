@@ -1,3 +1,7 @@
+// 77. GitHub Actions and Argos CI - updated playwright.config.ts to comment out the forbidOnly for CI
+// since using test.only('testing with argos ci', async({page}) => { test in usePageObject.spec.ts that
+// gets called from pageObjects-chrome in package.json via npm run pageObjects-chrome in playwright.yml
+
 // 77. GitHub Actions and Argos CI - updated playwright.config.ts timeout settings to run slower on GitHub Actions
 // timeout: 240000,
 // globalTimeout: 240000,
