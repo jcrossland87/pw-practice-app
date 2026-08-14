@@ -1,3 +1,8 @@
+// Section 5. UI Components 44. Drag & Drop 
+// Commented out Argos and WebServer code in playwright.config.ts and uncommented reporter: html
+// Updated to run drag-drop-bondar-academy.spec.ts that I missed earlier to complete the course
+// Runs https://playground.bondaracademy.com/pages/extra-components/drag-drop not localhost:4200 built with npm start in pw-practice-app
+
 // 77. GitHub Actions and Argos CI - updated usePageObjects.spec.ts and updated playwright.config.ts
 // added last test for use with Argos CI https://argos-ci.com/ test.only('testing with argos ci', async({page{}) => {
 // where playwright.yml references package.json to run the test npm run pageObjects-chrome for usePageObjects.spec.ts
@@ -132,24 +137,31 @@ export default defineConfig<TestOptions>({
   // to get different test report outputs as needed with the test report output displayed in the terminal
   // See https://www.npmjs.com/package/allure-playwright and https://www.npmjs.com/package/allure for Allure
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  // reporter: 'html',
+  
+  // Section 5. UI Components 44. Drag & Drop 
+  // Commented out Argos and WebServer code in playwright.config.ts and uncommented reporter: html
+  // Updated to run drag-drop-bondar-academy.spec.ts that I missed earlier to complete the course
+  // Runs https://playground.bondaracademy.com/pages/extra-components/drag-drop not localhost:4200 built with npm start in pw-practice-app
+  
+  reporter: 'html',
+  
   // reporter: [['json', {outputFile: 'test-results/jsonReport.json'}]],
   // reporter: 'list',
-  reporter: [
-    process.env.CI ? ["dot"] : ["list"],
-    [
-      "@argos-ci/playwright/reporter",
-      createArgosReporterOptions({
-        // Upload to Argos on CI only.
-        uploadToArgos: !!process.env.CI,
-      }),
-    ],
+  // reporter: [
+  //   process.env.CI ? ["dot"] : ["list"],
+  //   [
+  //     "@argos-ci/playwright/reporter",
+  //     createArgosReporterOptions({
+  //       // Upload to Argos on CI only.
+  //       uploadToArgos: !!process.env.CI,
+  //     }),
+  //   ],
 
-    ['json', {outputFile: 'test-results/jsonReport.json'}],
-    ['junit', {outputFile: 'test-results/junitReport.xml'}],
-    // ['allure-playwright'],
-    ['html']
-  ],
+  //   ['json', {outputFile: 'test-results/jsonReport.json'}],
+  //   ['junit', {outputFile: 'test-results/junitReport.xml'}],
+  //   // ['allure-playwright'],
+  //   ['html']
+  // ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
@@ -276,10 +288,15 @@ export default defineConfig<TestOptions>({
   // https://apps.microsoft.com/home - search for Docker Desktop and Ubuntu
   // See Playwright Docker documentation: https://playwright.dev/docs/docker
 
-  webServer: {
-    command: 'npm run start',
-    url: 'http://localhost:4200/'
-  }
+  // Section 5. UI Components 44. Drag & Drop 
+  // Commented out Argos and WebServer code in playwright.config.ts and uncommented reporter: html
+  // Updated to run drag-drop-bondar-academy.spec.ts that I missed earlier to complete the course
+  // Runs https://playground.bondaracademy.com/pages/extra-components/drag-drop not localhost:4200 built with npm start in pw-practice-app
+
+  // webServer: {
+  //   command: 'npm run start',
+  //   url: 'http://localhost:4200/'
+  // }
 
 
   
